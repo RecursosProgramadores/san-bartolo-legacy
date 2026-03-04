@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 import logoBuenavista from "@/assets/logo-buenavista.png";
 import heroImage from "@/assets/hero-buenavista.jpg";
 
-const WHATSAPP_URL = "https://wa.me/51999999999?text=Hola%2C%20quiero%20agendar%20mi%20visita%20gratis%20al%20condominio";
+const WHATSAPP_URL = "https://wa.me/51908930174?text=Hola%2C%20quiero%20agendar%20mi%20visita%20gratis%20al%20condominio";
 
 const HeroSection = () => {
   return (
@@ -17,7 +17,7 @@ const HeroSection = () => {
         />
         <div
           className="absolute inset-0"
-          style={{ background: "var(--gradient-hero-overlay)" }}
+          style={{ background: "linear-gradient(180deg, hsla(0,0%,0%,0.6) 0%, hsla(0,0%,0%,0.25) 40%, hsla(0,0%,0%,0.5) 70%, hsla(0,0%,0%,0.8) 100%)" }}
         />
       </div>
 
@@ -66,22 +66,27 @@ const HeroSection = () => {
           El único condominio consolidado de San Bartolo donde ya viven familias como la tuya.
         </motion.p>
 
-        {/* Video placeholder */}
+        {/* Video VSL placeholder */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="w-full max-w-3xl aspect-video rounded-2xl overflow-hidden mb-10 border-2 border-bv-gold/30"
-          style={{ background: "hsla(0,0%,0%,0.5)" }}
+          className="w-full max-w-4xl aspect-video rounded-2xl overflow-hidden mb-12 border-2 border-bv-gold/40 relative group cursor-pointer"
+          style={{ background: "hsla(0,0%,0%,0.6)", backdropFilter: "blur(4px)" }}
         >
+          {/* IMAGEN_REAL: Inserta aquí video real de 60-90s: 80% momentos emocionales de familias/niños/mascotas/legado/tranquilidad + 20% tomas reales del condominio consolidado */}
           <div className="w-full h-full flex flex-col items-center justify-center gap-4">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bv-gold-gradient flex items-center justify-center animate-pulse-gold cursor-pointer">
-              <svg className="w-8 h-8 md:w-10 md:h-10 ml-1" fill="hsl(var(--bv-dark))" viewBox="0 0 24 24">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bv-gold-gradient flex items-center justify-center animate-pulse-gold group-hover:scale-110 transition-transform duration-300"
+              style={{ boxShadow: "0 0 40px hsla(45, 82%, 53%, 0.4)" }}>
+              <svg className="w-10 h-10 md:w-12 md:h-12 ml-1" fill="hsl(var(--bv-dark))" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </div>
-            <p className="text-bv-warm-white/70 text-sm font-body">
+            <p className="text-bv-warm-white/80 text-sm md:text-base font-body">
               Mira cómo viven las familias en Buenavista
+            </p>
+            <p className="text-bv-warm-white/40 text-xs font-body">
+              Video real • 60 segundos que pueden cambiar tu vida
             </p>
           </div>
         </motion.div>
@@ -94,9 +99,10 @@ const HeroSection = () => {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="bv-cta-button text-lg md:text-xl"
+          className="bv-cta-button text-xl md:text-2xl !px-12 !py-6"
+          style={{ boxShadow: "0 8px 50px hsla(45, 82%, 53%, 0.4)" }}
         >
-          <MessageCircle className="w-6 h-6" />
+          <MessageCircle className="w-7 h-7" />
           Agenda tu visita GRATIS por WhatsApp
         </motion.a>
       </div>
