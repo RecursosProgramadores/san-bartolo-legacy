@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
-import logoBuenavista from "@/assets/logo-buenavista.png";
+import logoBuenavista from "@/assets/logos/logo-buenavista.png";
+import whatsappIcon from "@/assets/logos/whatsapp.svg";
 import heroImage from "@/assets/hero-buenavista.jpg";
 
 const WHATSAPP_URL = "https://wa.me/51908930174?text=Hola%2C%20quiero%20agendar%20mi%20visita%20gratis%20al%20condominio";
@@ -15,96 +15,107 @@ const HeroSection = () => {
           alt="Familias disfrutando en el condominio Buenavista"
           className="w-full h-full object-cover"
         />
+        <div className="absolute inset-0 bg-bv-dark/40" />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(180deg, hsla(0,0%,0%,0.6) 0%, hsla(0,0%,0%,0.25) 40%, hsla(0,0%,0%,0.5) 70%, hsla(0,0%,0%,0.8) 100%)" }}
+          style={{ background: "linear-gradient(180deg, hsla(0,0%,0%,0.85) 0%, hsla(0,0%,0%,0.4) 30%, hsla(0,0%,0%,0.4) 60%, hsla(0,0%,0%,0.9) 100%)" }}
         />
       </div>
 
       {/* Nav */}
-      <nav className="relative z-10 flex items-center justify-between px-4 md:px-12 py-4">
-        <img src={logoBuenavista} alt="Buenavista Condominios" className="h-14 md:h-20 brightness-0 invert" />
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bv-cta-button text-sm md:text-base !py-3 !px-6"
-        >
-          <MessageCircle className="w-5 h-5" />
-          <span className="hidden sm:inline">Agenda tu visita GRATIS</span>
-          <span className="sm:hidden">Agendar visita</span>
-        </a>
+      <nav className="relative z-10 flex items-center justify-between px-4 md:px-12 py-6">
+        <img
+          src={logoBuenavista}
+          alt="Buenavista Condominios"
+          className="h-14 md:h-20 object-contain mx-auto md:mx-0"
+          style={{ filter: "brightness(1.5) contrast(1.1) drop-shadow(0 0 15px rgba(255,255,255,0.2))" }}
+        />
       </nav>
 
       {/* Content */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 md:px-12 text-center max-w-5xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="bv-headline text-bv-warm-white mb-6"
-        >
-          Imagínate despertando cada fin de semana en{" "}
-          <span className="bv-gold-text italic">tu propio paraíso familiar…</span>
-        </motion.h1>
+      <div className="relative z-10 flex-1 flex flex-col justify-center px-4 md:px-12 lg:px-20 max-w-[1400px] mx-auto py-8 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr,1.2fr] gap-10 lg:gap-16 items-center lg:-mt-20">
+          {/* Left Column: Text */}
+          <div className="text-left order-2 lg:order-1 lg:pr-8">
+            <motion.h1
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bv-headline text-bv-warm-white mb-6 text-3xl md:text-4xl lg:text-5xl leading-tight"
+            >
+              Asegura el <span className="bv-gold-text italic">legado de tu familia</span> en el refugio más exclusivo de San Bartolo
+            </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="bv-subheadline text-bv-warm-white/90 max-w-3xl mb-4"
-        >
-          Con club house funcionando, áreas comunes llenas de vida y el valor de tu terreno subiendo mes a mes… mientras otras familias ya están construyendo sus recuerdos aquí.
-        </motion.p>
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="bv-subheadline text-bv-warm-white/90 mb-6 text-lg md:text-xl lg:max-w-xl"
+            >
+              Para quienes buscan más que un terreno: un estilo de vida de paz absoluta, seguridad y una comunidad consolidada donde tus hijos crecerán creando recuerdos inolvidables.
+            </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="text-bv-gold font-semibold text-base md:text-lg mb-10"
-        >
-          El único condominio consolidado de San Bartolo donde ya viven familias como la tuya.
-        </motion.p>
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="text-bv-gold font-semibold text-base md:text-lg mb-10 lg:max-w-xl"
+            >
+              Descubre por qué las familias más exigentes ya están construyendo su futuro aquí.
+            </motion.p>
 
-        {/* Video VSL placeholder */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="w-full max-w-4xl aspect-video rounded-2xl overflow-hidden mb-12 border-2 border-bv-gold/40 relative group cursor-pointer"
-          style={{ background: "hsla(0,0%,0%,0.6)", backdropFilter: "blur(4px)" }}
-        >
-          {/* IMAGEN_REAL: Inserta aquí video real de 60-90s: 80% momentos emocionales de familias/niños/mascotas/legado/tranquilidad + 20% tomas reales del condominio consolidado */}
-          <div className="w-full h-full flex flex-col items-center justify-center gap-4">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bv-gold-gradient flex items-center justify-center animate-pulse-gold group-hover:scale-110 transition-transform duration-300"
-              style={{ boxShadow: "0 0 40px hsla(45, 82%, 53%, 0.4)" }}>
-              <svg className="w-10 h-10 md:w-12 md:h-12 ml-1" fill="hsl(var(--bv-dark))" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-            <p className="text-bv-warm-white/80 text-sm md:text-base font-body">
-              Mira cómo viven las familias en Buenavista
-            </p>
-            <p className="text-bv-warm-white/40 text-xs font-body">
-              Video real • 60 segundos que pueden cambiar tu vida
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="flex justify-start"
+            >
+              <a
+                href="#cta-section"
+                className="bv-cta-button text-lg md:text-xl !px-10 !py-5"
+                style={{ boxShadow: "0 8px 50px hsla(45, 82%, 53%, 0.4)" }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('cta-section')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <img
+                  src={whatsappIcon}
+                  alt="WhatsApp"
+                  className="w-6 h-6 object-contain"
+                  style={{ filter: "brightness(0) saturate(100%)" }}
+                />
+                Agendar mi visita gratuita
+              </a>
+            </motion.div>
           </div>
-        </motion.div>
 
-        {/* CTA */}
-        <motion.a
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.1 }}
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bv-cta-button text-xl md:text-2xl !px-12 !py-6"
-          style={{ boxShadow: "0 8px 50px hsla(45, 82%, 53%, 0.4)" }}
-        >
-          <MessageCircle className="w-7 h-7" />
-          Agenda tu visita GRATIS por WhatsApp
-        </motion.a>
+          {/* Right Column: Video */}
+          <motion.div
+            initial={{ opacity: 0, x: 30, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="order-1 lg:order-2 w-full aspect-video rounded-[32px] overflow-hidden border-2 border-bv-gold/30 shadow-2xl relative group transform lg:scale-110 lg:-translate-y-8"
+            style={{
+              background: "hsla(0,0%,0%,0.6)",
+              backdropFilter: "blur(12px)",
+              boxShadow: "0 0 80px hsla(45, 82%, 53%, 0.2)"
+            }}
+          >
+            <div className="absolute inset-0 bg-bv-gold/5 group-hover:bg-transparent transition-colors duration-500 z-0 pointer-events-none" />
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/nwxartVkleY?si=NqNSCmTdvgBCdzIv"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              className="relative z-10"
+            />
+          </motion.div>
+        </div>
       </div>
 
       {/* Scroll indicator */}

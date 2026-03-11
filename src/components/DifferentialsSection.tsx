@@ -7,30 +7,30 @@ import legalDocs from "@/assets/legal-docs.jpg";
 const differentials = [
   {
     icon: Shield,
-    title: "Proyecto ya consolidado",
+    title: "La paz de una realidad palpable",
     description:
-      "Más de 800 lotes vendidos, etapas desarrolladas, club houses funcionando y familias viviendo. Mientras otros venden promesas en papel, aquí ya puedes tocar y vivir el resultado.",
-    fomo: "Las etapas ya entregadas se vendieron rápido. Las nuevas no duran mucho.",
+      "A diferencia de las promesas en papel, aquí el estilo de vida ya existe. Caminar por las áreas verdes, ver el club house funcionando y a las familias viviendo es la única garantía real para tu inversión.",
+    fomo: "Las mejores ubicaciones se agotan mientras otros siguen esperando planos.",
     image: clubhouseEvent,
-    imageAlt: "IMAGEN_REAL: Club house funcionando con familias en Buenavista",
+    imageAlt: "Estilo de vida real y consolidado en Buenavista",
   },
   {
     icon: MapPin,
-    title: "Ubicación estratégica en San Bartolo",
+    title: "El refugio perfecto, en el lugar correcto",
     description:
-      "3er distrito más seguro de Lima, a solo 30 minutos por la Panamericana Sur (Km 50). Cerca de boulevards, comercio en crecimiento y con la playa a minutos. Zona de alta revalorización.",
-    fomo: "El crecimiento urbano de San Bartolo ya empezó. Los que entraron primero hoy celebran.",
+      "Ubicado en la zona de mayor exclusividad y seguridad de San Bartolo. Un entorno diseñado para quienes valoran la privacidad sin alejarse de la conectividad que el éxito exige.",
+    fomo: "San Bartolo es el nuevo epicentro del lujo costero. Entrar ahora es asegurar tu lugar.",
     image: aerialSanbartolo,
-    imageAlt: "IMAGEN_REAL: Vista aérea del condominio Buenavista en San Bartolo",
+    imageAlt: "Exclusiva ubicación en San Bartolo",
   },
   {
     icon: FileCheck,
-    title: "Respaldo legal total",
+    title: "Certeza absoluta para tu patrimonio",
     description:
-      "Partida registral verificable en SUNARP y RUC activo en SUNAT. Compra con total tranquilidad y documentación al 100%.",
-    fomo: "No arriesgues tu inversión con proyectos sin respaldo. Aquí todo es verificable.",
+      "Toda la documentación está lista y verificada. Nuestra prioridad es que tu única preocupación sea imaginar cómo será tu nueva casa, no los papeles.",
+    fomo: "La exclusividad requiere respaldo. Aquí construyes sobre cimientos legales sólidos.",
     image: legalDocs,
-    imageAlt: "IMAGEN_REAL: Documentación legal verificable SUNARP y SUNAT",
+    imageAlt: "Seguridad jurídica total para tu inversión",
   },
 ];
 
