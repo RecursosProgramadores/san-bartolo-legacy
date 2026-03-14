@@ -43,36 +43,27 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="bv-headline text-bv-warm-white mb-6 text-3xl md:text-4xl lg:text-5xl leading-tight"
             >
-              Asegura el <span className="bv-gold-text italic">legado de tu familia</span> en el refugio más exclusivo de San Bartolo
+              Estás a un paso de darle a tu familia el <span className="bv-gold-text italic">estilo de vida</span> que siempre imaginaste
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="bv-subheadline text-bv-warm-white/90 mb-6 text-lg md:text-xl lg:max-w-xl"
+              className="bv-subheadline text-bv-warm-white/90 mb-10 text-lg md:text-xl lg:max-w-xl"
             >
-              Para quienes buscan más que un terreno: un estilo de vida de paz absoluta, seguridad y una comunidad consolidada donde tus hijos crecerán creando recuerdos inolvidables.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="text-bv-gold font-semibold text-base md:text-lg mb-10 lg:max-w-xl"
-            >
-              Descubre por qué las familias más exigentes ya están construyendo su futuro aquí.
+              Descubre por qué más de 800 familias ya decidieron invertir en el condominio más prestigioso de San Bartolo.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
               className="flex justify-start"
             >
               <a
                 href="#cta-section"
-                className="bv-cta-button text-lg md:text-xl !px-10 !py-5"
+                className="bv-cta-button text-base md:text-lg !px-6 md:!px-10 !py-4 md:!py-5 text-center"
                 style={{ boxShadow: "0 8px 50px hsla(45, 82%, 53%, 0.4)" }}
                 onClick={(e) => {
                   e.preventDefault();
@@ -82,10 +73,10 @@ const HeroSection = () => {
                 <img
                   src={whatsappIcon}
                   alt="WhatsApp"
-                  className="w-6 h-6 object-contain"
+                  className="w-5 h-5 md:w-6 md:h-6 object-contain flex-shrink-0"
                   style={{ filter: "brightness(0) saturate(100%)" }}
                 />
-                Agendar mi visita gratuita
+                Quiero agendar mi visita totalmente GRATIS
               </a>
             </motion.div>
           </div>

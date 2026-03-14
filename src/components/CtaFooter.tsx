@@ -17,8 +17,8 @@ const CtaSection = () => {
     <section id="cta-section" className="relative py-24 md:py-36 overflow-hidden">
       {/* BG */}
       <div className="absolute inset-0">
-        <img src={familySunset} alt="IMAGEN_REAL: Familia al atardecer en Buenavista" className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsla(0,0%,0%,0.7) 0%, hsla(0,0%,0%,0.5) 50%, hsla(0,0%,0%,0.8) 100%)" }} />
+        <img src={familySunset} alt="Familia al atardecer en Buenavista" className="w-full h-full object-cover transform scale-105" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsla(0,0%,0%,0.7) 0%, hsla(0,0%,0%,0.5) 50%, hsla(0,0%,0%,0.9) 100%)" }} />
       </div>
 
       <div className="relative z-10 bv-container text-center px-4">
@@ -27,54 +27,37 @@ const CtaSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto"
+          className="max-w-4xl mx-auto flex flex-col items-center"
         >
-          <Heart className="w-12 h-12 text-bv-gold mx-auto mb-8" />
-          <h2 className="bv-headline text-bv-warm-white mb-8">
-            Tu futuro empieza con <span className="bv-gold-text italic">una experiencia exclusiva</span>
+          <div className="w-20 h-20 rounded-full bg-bv-gold/10 flex items-center justify-center border border-bv-gold/30 mb-8 backdrop-blur-sm">
+            <Heart className="w-8 h-8 text-bv-gold" />
+          </div>
+
+          <h2 className="bv-headline text-bv-warm-white mb-6 text-4xl md:text-5xl lg:text-7xl leading-tight">
+            Agenda tu visita <span className="bv-gold-text italic block mt-2">al condominio</span>
           </h2>
-          <p className="bv-subheadline text-bv-warm-white/85 mb-8 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed">
-            Te invitamos a una visita privada, sin compromiso alguno, para que sientas la paz de lo que ya es una realidad. Descubre por qué otras familias visionarias ya han asegurado su lugar en Buenavista.
+
+          <p className="text-bv-warm-white mb-12 max-w-2xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
+            La visita es completamente <span className="text-bv-gold font-bold">GRATUITA</span> y sin ningún compromiso de compra.
           </p>
-          <div className="bg-bv-gold/10 backdrop-blur-sm border border-bv-gold/20 rounded-2xl p-6 mb-12 max-w-xl mx-auto">
-            <p className="text-bv-gold font-bold text-lg md:text-xl">
-              Reserva hoy tu visita de cortesía y comienza a construir tu legado.
-            </p>
-          </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-14">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              <img
-                src={logoBuenavista}
-                alt="Buenavista Condominios"
-                className="h-32 md:h-32 object-contain"
-                style={{ filter: "brightness(1.5) contrast(1.1) drop-shadow(0 0 20px rgba(255,255,255,0.15))" }}
-              />
-            </motion.div>
-
-            <motion.a
-              whileHover={{ scale: 1.05, y: -4 }}
-              whileTap={{ scale: 0.98 }}
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bv-cta-button text-lg md:text-2xl !px-10 !py-6 text-center"
-              style={{ boxShadow: "0 8px 50px hsla(45, 82%, 53%, 0.4)" }}
-            >
-              <img
-                src={whatsappIcon}
-                alt="WhatsApp"
-                className="w-7 h-7 shrink-0 object-contain"
-                style={{ filter: "brightness(0) saturate(100%)" }}
-              />
-              Agendar mi visita gratuita para conocer Buenavista en persona
-            </motion.a>
-          </div>
+          <motion.a
+            whileHover={{ scale: 1.05, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-4 bg-bv-gold text-bv-dark font-bold text-lg md:text-xl px-8 py-5 md:px-12 md:py-6 rounded-full hover:bg-white transition-colors duration-300 w-full sm:w-auto"
+            style={{ boxShadow: "0 8px 50px hsla(45, 82%, 53%, 0.4)" }}
+          >
+            <img
+              src={whatsappIcon}
+              alt="WhatsApp"
+              className="w-7 h-7 shrink-0 object-contain"
+              style={{ filter: "brightness(0) saturate(100%)" }}
+            />
+            <span className="text-center">Quiero agendar una visita GRATUITA<br className="hidden md:block" /> para conocer el condominio en persona</span>
+          </motion.a>
         </motion.div>
       </div>
     </section>
