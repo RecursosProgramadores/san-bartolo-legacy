@@ -48,43 +48,82 @@ const ImageMarquee = ({ images, speed = 40, direction = "left" }: { images: stri
   );
 };
 
-// Helper for infinite Youtube Shorts marquee
-const ShortsMarquee = ({ speed = 50, direction = "left" }: { speed?: number, direction?: "left" | "right" }) => {
-  const shortsArray = Array.from({ length: 9 }, (_, i) => i);
+// Vimeos 
+const vimeoVideos = [
+  "1174279115",
+  "1174283172",
+  "1174284982",
+  "1174286088",
+  "1174287029",
+  "1174297506"
+];
+
+const VideoPlayer = ({ id }: { id: string }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const handleVideoPlay = (e: any) => {
+      if (e.detail.id !== id) setIsPlaying(false);
+    };
+    window.addEventListener('custom-video-play', handleVideoPlay);
+    return () => window.removeEventListener('custom-video-play', handleVideoPlay);
+  }, [id]);
+
+  const handlePlayToggle = () => {
+    if (!isPlaying) {
+      window.dispatchEvent(new CustomEvent('custom-video-play', { detail: { id } }));
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
+    }
+  };
 
   return (
-    <div className="flex overflow-hidden select-none border-y border-white/5 py-4 mt-8">
-      <motion.div
-        animate={{
-          x: direction === "left" ? [0, -1500] : [-1500, 0],
-        }}
-        transition={{
-          duration: speed,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="flex flex-nowrap min-w-full gap-6 px-4"
-      >
-        {[...shortsArray, ...shortsArray].map((_, idx) => (
-          <div
-            key={idx}
-            className="w-48 md:w-64 shrink-0 aspect-[9/16] rounded-2xl bg-bv-dark/80 border border-bv-gold/20 shadow-lg overflow-hidden relative group cursor-pointer"
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bv-dark/50 to-bv-dark" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center backdrop-blur-sm bg-white/5 group-hover:bg-bv-gold/5 transition-colors duration-500">
-              <div className="w-14 h-14 bg-red-600 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(220,38,38,0.5)] group-hover:scale-110 transition-transform duration-500 mb-4">
-                <Play className="w-5 h-5 text-white ml-1" />
-              </div>
-              <h4 className="text-xl font-display font-bold text-bv-warm-white mb-2">
-                Short
-              </h4>
-              <p className="text-bv-warm-white/40 text-xs text-balance">
-                Próximamente: Mira lo que viven las familias.
-              </p>
+    <div className="w-full aspect-[9/16] rounded-2xl bg-bv-dark/80 border border-bv-gold/20 shadow-lg overflow-hidden relative group/play">
+      {!isPlaying && (
+        <div 
+          className="absolute inset-0 z-20 flex items-center justify-center cursor-pointer group/playbtn"
+          onClick={handlePlayToggle}
+        >
+          <div className="w-12 h-12 bg-bv-gold/90 rounded-full flex items-center justify-center pl-1 shadow-[0_0_20px_rgba(234,179,8,0.5)] backdrop-blur-sm group-hover/playbtn:scale-110 transition-transform">
+            <Play className="w-6 h-6 text-bv-dark fill-bv-dark" />
+          </div>
+        </div>
+      )}
+
+      {isPlaying && (
+        <div 
+          className="absolute inset-0 z-20 cursor-pointer group/stop"
+          onClick={handlePlayToggle}
+        >
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/stop:opacity-100 transition-opacity duration-300">
+            <div className="w-12 h-12 bg-bv-dark/70 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)] backdrop-blur-sm scale-90 group-hover/stop:scale-100 transition-transform">
+              <div className="w-4 h-4 bg-white rounded-sm" />
             </div>
           </div>
+        </div>
+      )}
+
+      <iframe
+        src={`https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0&controls=0&dnt=1&playsinline=1${isPlaying ? '&autoplay=1' : ''}`}
+        width="100%"
+        height="100%"
+        frameBorder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+    </div>
+  );
+};
+
+const StaticVideoGrid = () => {
+  return (
+    <div className="w-full max-w-7xl mx-auto mt-8 border-y border-white/5 py-8">
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+        {vimeoVideos.map((id, idx) => (
+          <VideoPlayer key={idx} id={id} />
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };
@@ -179,9 +218,9 @@ const SocialProofSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="bv-headline text-bv-warm-white mb-8"
+            className="font-display font-black uppercase tracking-tighter text-4xl md:text-5xl lg:text-[4rem] leading-[1.05] text-bv-warm-white mb-8"
           >
-            Más de <span className="bv-gold-text italic">800 familias</span> <br className="hidden md:block" /> ya decidieron su futuro
+            MÁS DE <span className="text-bv-gold">800 FAMILIAS</span> <br className="hidden md:block" /> YA DECIDIERON SU FUTURO
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -208,10 +247,10 @@ const SocialProofSection = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-display font-bold tracking-[0.15em] uppercase text-bv-warm-white leading-tight"
+          className="text-3xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter uppercase text-bv-warm-white leading-[1.05]"
         >
-          ¡Ellos confían en <br className="md:hidden" />
-          <span className="bv-gold-text">Buenavista Condominios!</span>
+          ¡ELLOS CONFÍAN EN <br className="md:hidden" />
+          <span className="text-bv-gold">BUENAVISTA CONDOMINIOS!</span>
         </motion.h3>
         <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-bv-gold/50 to-transparent mx-auto mt-8" />
       </div>
@@ -224,8 +263,8 @@ const SocialProofSection = () => {
         {/* Row 2: Firmas Notaria (Right to Left) */}
         <ImageMarquee images={row2} direction="left" speed={90} />
 
-        {/* Row 3: Youtube Shorts Marquee (Placeholder 9 shorts) */}
-        <ShortsMarquee direction="left" speed={70} />
+        {/* Row 3: Static Vimeo Videos Grid */}
+        <StaticVideoGrid />
       </div>
 
       <div className="bv-container relative z-10 mt-16">

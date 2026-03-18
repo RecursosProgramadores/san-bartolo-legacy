@@ -29,8 +29,8 @@ const TeamSection = () => {
                             </span>
                         </div>
 
-                        <h2 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-display font-bold text-bv-warm-white mb-10 leading-[1.15]">
-                            Un proyecto desarrollado por un <span className="bv-gold-text italic block mt-2">equipo comprometido</span>
+                        <h2 className="font-display font-black uppercase tracking-tighter text-4xl md:text-5xl lg:text-[4rem] text-bv-warm-white mb-10 leading-[1.05]">
+                            Un equipo comprometido con <br className="hidden lg:block" /><span className="text-bv-gold">tu tranquilidad</span>
                         </h2>
 
                         <div className="space-y-6">

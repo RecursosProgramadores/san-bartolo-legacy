@@ -1,8 +1,28 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import familyLifestyleImage from "@/assets/family-lifestyle.jpg";
-import { Compass, Sparkles, Users } from "lucide-react";
+import familyLifestyleImage from "@/assets/family-lifestyle.jpeg";
+import { Compass, Sparkles, Users, Play } from "lucide-react";
 
 const VisitSection = () => {
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+    useEffect(() => {
+        const handleVideoPlay = (e: any) => {
+            if (e.detail.id !== 'visit') setIsVideoPlaying(false);
+        };
+        window.addEventListener('custom-video-play', handleVideoPlay);
+        return () => window.removeEventListener('custom-video-play', handleVideoPlay);
+    }, []);
+
+    const handlePlayToggle = () => {
+        if (!isVideoPlaying) {
+            window.dispatchEvent(new CustomEvent('custom-video-play', { detail: { id: 'visit' } }));
+            setIsVideoPlaying(true);
+        } else {
+            setIsVideoPlaying(false);
+        }
+    };
+
     return (
         <section className="bv-section bv-dark-bg py-24 md:py-32 relative overflow-hidden">
             {/* Ambient Background Elements */}
@@ -19,8 +39,8 @@ const VisitSection = () => {
                         viewport={{ once: true }}
                     >
                         <span className="text-xs uppercase tracking-[0.4em] text-bv-gold/70 mb-4 block font-bold">Vive el Proyecto</span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-bv-warm-white mb-8 leading-tight">
-                            Conoce <span className="bv-gold-text italic">Buenavista</span> en persona
+                        <h2 className="font-display font-black uppercase tracking-tighter text-4xl md:text-5xl lg:text-6xl text-bv-warm-white mb-8 leading-[1.05]">
+                            Agenda tu visita gratuita<br className="hidden md:block" />y conoce el proyecto <span className="text-bv-gold">hoy mismo</span>
                         </h2>
 
                         <p className="text-lg md:text-xl text-bv-warm-white/70 leading-relaxed mb-6 max-w-3xl mx-auto">
@@ -42,25 +62,38 @@ const VisitSection = () => {
                         viewport={{ once: true }}
                         className="relative lg:h-[700px] order-2 lg:order-1"
                     >
-                        <div className="lg:sticky lg:top-32 w-full h-full">
-                            <div className="absolute -inset-4 bg-bv-gold/10 blur-2xl rounded-[3rem] opacity-40" />
-                            <div className="relative w-full h-full aspect-[4/5] lg:aspect-auto rounded-[2.5rem] overflow-hidden border border-white/10 group shadow-2xl">
-                                <img
-                                    src={familyLifestyleImage}
-                                    alt="Visita Buenavista con tu familia"
-                                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-bv-dark via-bv-dark/20 to-transparent opacity-80" />
-
-                                {/* Bottom Floating Badge */}
-                                <div className="absolute bottom-8 left-8 right-8">
-                                    <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
-                                        <p className="text-bv-warm-white text-lg font-medium leading-snug">
-                                            "El primer paso hacia el futuro que tu familia merece."
-                                        </p>
+                        <div className="lg:sticky lg:top-32 w-full h-full relative group/play">
+                            {!isVideoPlaying && (
+                                <div 
+                                    className="absolute inset-0 z-20 flex items-center justify-center cursor-pointer rounded-3xl group/playbtn"
+                                    onClick={handlePlayToggle}
+                                >
+                                    <div className="w-16 h-16 bg-bv-gold/90 rounded-full flex items-center justify-center pl-1.5 shadow-[0_0_30px_rgba(234,179,8,0.5)] backdrop-blur-sm group-hover/playbtn:scale-110 transition-transform">
+                                        <Play className="w-8 h-8 text-bv-dark fill-bv-dark" />
                                     </div>
                                 </div>
-                            </div>
+                            )}
+
+                            {isVideoPlaying && (
+                                <div 
+                                    className="absolute inset-0 z-20 cursor-pointer rounded-3xl group/stop"
+                                    onClick={handlePlayToggle}
+                                >
+                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/stop:opacity-100 transition-opacity duration-300">
+                                        <div className="w-16 h-16 bg-bv-dark/70 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.5)] backdrop-blur-sm scale-90 group-hover/stop:scale-100 transition-transform">
+                                            <div className="w-5 h-5 bg-white rounded-sm" /> 
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            <iframe
+                                src={`https://player.vimeo.com/video/1174299260?title=0&byline=0&portrait=0&controls=0&dnt=1&playsinline=1${isVideoPlaying ? '&autoplay=1' : ''}`}
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                                className="w-full h-full aspect-[4/5] lg:aspect-[9/16] object-cover rounded-3xl relative z-10"
+                            />
                         </div>
                     </motion.div>
 

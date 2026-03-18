@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Heart, Mail, MessageCircle, MapPin, ShieldCheck, ExternalLink } from "lucide-react";
-import familySunset from "@/assets/family-sunset.jpg";
+import familySunset from "@/assets/family-sunset.jpeg";
 import logoBuenavista from "@/assets/logos/logo-buenavista.png";
 import whatsappIcon from "@/assets/logos/whatsapp.svg";
 import facebookIcon from "@/assets/logos/facebook.svg";
@@ -33,8 +33,8 @@ const CtaSection = () => {
             <Heart className="w-8 h-8 text-bv-gold" />
           </div>
 
-          <h2 className="bv-headline text-bv-warm-white mb-6 text-4xl md:text-5xl lg:text-7xl leading-tight">
-            Agenda tu visita <span className="bv-gold-text italic block mt-2">al condominio</span>
+          <h2 className="font-display font-black uppercase tracking-tighter text-white mb-6 text-3xl md:text-5xl lg:text-5xl leading-[1.05]">
+            Da el primer paso hacia el futuro que tu familia merece
           </h2>
 
           <p className="text-bv-warm-white mb-12 max-w-2xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
@@ -53,7 +53,7 @@ const CtaSection = () => {
             <img
               src={whatsappIcon}
               alt="WhatsApp"
-              className="w-7 h-7 shrink-0 object-contain"
+              className="w-9 h-9 md:w-10 md:h-10 shrink-0 object-contain"
               style={{ filter: "brightness(0) saturate(100%)" }}
             />
             <span className="text-center">Quiero agendar una visita GRATUITA<br className="hidden md:block" /> para conocer el condominio en persona</span>
