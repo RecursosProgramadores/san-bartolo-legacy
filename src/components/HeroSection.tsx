@@ -76,7 +76,7 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-white/80 mb-10 text-lg md:text-xl lg:max-w-xl font-light tracking-wide"
             >
-              Descubre por qué más de 800 familias están construyendo su futuro en su propio lote, rodeadas de áreas exclusivas pensadas para disfrutar en familia todos los días.
+              Descubre por qué más de 800 familias están construyendo su futuro en su propio lote, con áreas exclusivas pensadas para disfrutar en familia todos los días.
             </motion.p>
 
             <motion.div

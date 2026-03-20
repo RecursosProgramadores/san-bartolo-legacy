@@ -38,7 +38,7 @@ const CtaSection = () => {
           </h2>
 
           <p className="text-bv-warm-white mb-12 max-w-2xl mx-auto text-xl md:text-2xl font-light leading-relaxed">
-            La visita es completamente <span className="text-bv-gold font-bold">GRATUITA</span> y sin ningún compromiso de compra.
+            Sin compromiso de compra. <span className="text-bv-gold font-bold">Solo tú, tu familia y Buenavista</span>
           </p>
 
           <motion.a

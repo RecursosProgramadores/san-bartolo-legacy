@@ -12,7 +12,8 @@ import zs6 from "@/assets/etapas/zonasociales/image15.jpg";
 import zs7 from "@/assets/etapas/zonasociales/image16.jpg";
 import zs8 from "@/assets/etapas/zonasociales/image17.jpg";
 import zs9 from "@/assets/etapas/zonasociales/image19.jpeg";
-const zSocialesData = { portada: zs1, gallery: [zs1, zs2, zs3, zs4, zs5, zs6, zs7, zs8, zs9] };
+import zs10 from "@/assets/etapas/zonasociales/image30.jpg";
+const zSocialesData = { portada: zs1, gallery: [zs1, zs2, zs3, zs4, zs5, zs6, zs7, zs8, zs9, zs10] };
 
 // Imports explícitos PISCINAS
 import pPortada from "@/assets/etapas/piscinas/portada.jpg";
@@ -38,7 +39,8 @@ import j4 from "@/assets/etapas/juegoninos/image8.jpg";
 import j5 from "@/assets/etapas/juegoninos/image10.jpg";
 import j6 from "@/assets/etapas/juegoninos/image13.jpg";
 import j7 from "@/assets/etapas/juegoninos/image14.jpg";
-const juegosData = { portada: jPortada, gallery: [jPortada, j1, j2, j3, j4, j5, j6, j7] };
+import j8 from "@/assets/etapas/juegoninos/image31.jpg";
+const juegosData = { portada: jPortada, gallery: [jPortada, j1, j2, j3, j4, j5, j6, j7, j8] };
 
 // Imports explícitos PET FRIENDLY
 import pfPortada from "@/assets/etapas/petfriendly/portada.jpeg";
@@ -81,6 +83,11 @@ const PhotoCollage = ({ images }: { images: string[] }) => {
       if (idx === 4) return "col-span-2 row-span-2"; // El centro es grande
       return "col-span-1 row-span-1"; // El resto hace marco
     }
+    // ZONAS SOCIALES UPDATE (10 fotos) -> 2 grandes, 8 pequeñas
+    if (count === 10) {
+      if (idx === 0 || idx === 5) return "col-span-2 row-span-2";
+      return "col-span-1 row-span-1";
+    }
 
     // Fallback safe
     return "col-span-1 row-span-1";
@@ -92,25 +99,26 @@ const PhotoCollage = ({ images }: { images: string[] }) => {
   else if (count === 5) gridClasses += " grid-cols-6 grid-rows-3";
   else if (count === 8) gridClasses += " grid-cols-4 grid-rows-4";
   else if (count === 9) gridClasses += " grid-cols-4 grid-rows-3";
+  else if (count === 10) gridClasses += " grid-cols-4 grid-rows-4 grid-flow-dense";
   else gridClasses += " grid-cols-2 md:grid-cols-3 auto-rows-fr"; // Safe fallback
 
   return (
-    <div className="w-full relative rounded-[2rem] overflow-hidden group border border-white/5 bg-white/5 shadow-2xl h-[450px] md:h-[600px]">
+    <div className="w-full h-full min-h-[350px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] relative rounded-xl lg:rounded-[2rem] overflow-hidden group">
       <div className={`absolute inset-0 ${gridClasses}`}>
         {images.map((img, idx) => (
-          <div key={idx} className={`relative rounded-xl md:rounded-2xl overflow-hidden group/item ${itemClasses(idx)}`}>
-            {/* The image with premium filters and a subtle zoom effect to hide low resolution & pixelation */}
+          <div key={idx} className={`relative rounded-lg lg:rounded-2xl overflow-hidden ${itemClasses(idx)}`}>
+            {/* The image with premium filters to hide low resolution & pixelation */}
             <img 
               src={img} 
               alt={`Experiencia detalle ${idx + 1}`} 
-              className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover/item:scale-110" 
+              className="absolute inset-0 w-full h-full object-cover" 
               style={{
                 filter: "contrast(1.15) saturate(1.1) brightness(0.9)"
               }}
             />
             {/* Inner vignette and gradient to add depth and hide edge pixelation */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 mix-blend-multiply pointer-events-none transition-opacity duration-500 group-hover/item:opacity-70" />
-            <div className="absolute inset-0 shadow-[inset_0_0_15px_rgba(0,0,0,0.3)] pointer-events-none rounded-xl md:rounded-2xl" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 mix-blend-multiply pointer-events-none opacity-40" />
+            <div className="absolute inset-0 shadow-[inset_0_0_15px_rgba(0,0,0,0.3)] pointer-events-none rounded-lg lg:rounded-2xl" />
           </div>
         ))}
       </div>
@@ -198,7 +206,7 @@ const ContrastSection = () => {
 
               <ul className="space-y-6">
                 {[
-                  "Proyecto con desarrollo real que puedes visitar hoy",
+                  "Terrenos con desarrollo real que puedes visitar hoy",
                   "Más de 20 espacios familiares dentro del condominio",
                   "A solo 30 minutos de Lima en el km 50 de la Panamericana Sur",
                   "San Bartolo: zona con mayor crecimiento urbano de Lima",
@@ -215,10 +223,12 @@ const ContrastSection = () => {
           </motion.div>
         </div>
 
-        {/* Section: THE SOLUTION (Experiencias en Familia) */}
-        <div className="pt-20 border-t border-white/5 relative">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-bv-gold/50 to-transparent" />
+      </div>
 
+      <div className="w-full relative pt-20 border-t border-white/5 mx-auto z-10">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-[1px] bg-gradient-to-r from-transparent via-bv-gold/50 to-transparent" />
+
+        <div className="bv-container px-4 md:px-8 lg:px-12 xl:px-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -232,180 +242,71 @@ const ContrastSection = () => {
               Más de 20 espacios pensados para disfrutar en familia.
             </p>
           </motion.div>
+        </div>
 
-          <div className="space-y-20 md:space-y-32">
+        <div className="w-full max-w-[1920px] mx-auto space-y-12 md:space-y-24 px-4 md:px-8 lg:px-12 xl:px-24 pb-20">
+          {[
+            {
+              num: "01", title: "Reuniones familiares al aire libre", subtitle: "Fines de semana que se disfrutan juntos en familia",
+              desc: "Reuniones inolvidables con múltiples pérgolas, acogedoras fogatas y más de 40 parrillas a tu entera disposición.",
+              images: zSocialesData.gallery
+            },
+            {
+              num: "02", title: "Piscinas para toda la familia", subtitle: "Días de sol, diversión y relajación garantizada",
+              desc: "Disfruta de piscinas diseñadas tanto para niños como para adultos, donde cada fin de semana se siente como unas verdaderas vacaciones.",
+              images: piscinasData.gallery
+            },
+            {
+              num: "03", title: "Deporte y vida siempre activa", subtitle: "Porque mantenerse activo eleva tu calidad de vida",
+              desc: "Forma equipos y juega partidos de fútbol, vóley, frontón o básquet con amigos y vecinos en instalaciones de primer nivel, a solo pasos de tu hogar.",
+              images: canchasData.gallery
+            },
+            {
+              num: "04", title: "Infancia libre y pura", subtitle: "Una niñez con más contacto con la naturaleza y menos pantallas",
+              desc: "Amplios parques y zonas de estimulación completamente seguras donde los más pequeños podrán correr, saltar y crecer en libertad.",
+              images: juegosData.gallery
+            },
+            {
+              num: "05", title: "Espacios Pet Friendly", subtitle: "Ellos también merecen un lugar diseñado para su felicidad",
+              desc: "Un entorno expansivo donde tus compañeros peludos podrán correr y disfrutar con total libertad en áreas seguras creadas exclusivamente para ellos.",
+              images: petData.gallery
+            }
+          ].map((stage, idx) => {
+            const textOnLeft = idx % 2 === 0;
+            return (
+              <div key={idx} className="grid lg:grid-cols-2 gap-4 lg:gap-8 items-stretch group">
+                <motion.div
+                  initial={{ opacity: 0, x: textOnLeft ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  className={`order-2 ${textOnLeft ? 'lg:order-1' : 'lg:order-2'} relative w-full h-full flex flex-col justify-center py-8 lg:p-12 xl:p-20 2xl:p-24`}
+                >
+                  <div className="flex items-center gap-6 mb-8 lg:mb-10">
+                    <span className="text-bv-gold font-display text-4xl lg:text-5xl font-bold">{stage.num}</span>
+                    <div className="h-[2px] w-16 md:w-24 bg-bv-gold/50" />
+                  </div>
+                  <h4 className="text-3xl md:text-5xl lg:text-[3.5rem] font-display font-bold text-white mb-6 lg:mb-8 leading-[1.05] tracking-tight">
+                    {stage.title}
+                  </h4>
+                  <p className="text-xl md:text-2xl text-bv-gold mb-6 lg:mb-8 italic font-display">
+                    "{stage.subtitle}"
+                  </p>
+                  <p className="text-lg md:text-xl text-white/70 leading-relaxed font-light">
+                    {stage.desc}
+                  </p>
+                </motion.div>
 
-            {/* Block 1: Zonas Sociales */}
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center group">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-2 md:order-1"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-bv-gold font-display text-3xl font-bold opacity-30 group-hover:opacity-100 transition-opacity">01</span>
-                  <div className="h-[2px] w-12 bg-bv-gold/30 group-hover:bg-bv-gold transition-colors" />
-                </div>
-                <h4 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-bv-warm-white mb-6">
-                  Reuniones familiares al aire libre
-                </h4>
-                <p className="text-xl text-bv-gold/90 mb-6 italic font-display">
-                  "Fines de semana que se disfrutan juntos en familia"
-                </p>
-                <p className="text-lg text-bv-warm-white/60 leading-relaxed">
-                  Reuniones inolvidables con múltiples pérgolas, acogedoras fogatas y más de 40 parrillas a tu entera disposición.
-                </p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-1 md:order-2"
-              >
-                <PhotoCollage
-                  images={zSocialesData.gallery}
-                />
-              </motion.div>
-            </div>
-
-            {/* Block 2: Piscinas */}
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center group">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-1"
-              >
-                <PhotoCollage
-                  images={piscinasData.gallery}
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-2"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-bv-gold font-display text-3xl font-bold opacity-30 group-hover:opacity-100 transition-opacity">02</span>
-                  <div className="h-[2px] w-12 bg-bv-gold/30 group-hover:bg-bv-gold transition-colors" />
-                </div>
-                <h4 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-bv-warm-white mb-6">
-                  Piscinas para toda la familia
-                </h4>
-                <p className="text-xl text-bv-gold/90 mb-6 italic font-display">
-                  "Días de sol, diversión y relajación garantizada"
-                </p>
-                <p className="text-lg text-bv-warm-white/60 leading-relaxed">
-                  Disfruta de piscinas diseñadas tanto para niños como para adultos, donde cada fin de semana se siente como unas verdaderas vacaciones.
-                </p>
-              </motion.div>
-            </div>
-
-            {/* Block 3: Canchas Deportivas */}
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center group">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-2 md:order-1"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-bv-gold font-display text-3xl font-bold opacity-30 group-hover:opacity-100 transition-opacity">03</span>
-                  <div className="h-[2px] w-12 bg-bv-gold/30 group-hover:bg-bv-gold transition-colors" />
-                </div>
-                <h4 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-bv-warm-white mb-6">
-                  Deporte y vida siempre activa
-                </h4>
-                <p className="text-xl text-bv-gold/90 mb-6 italic font-display">
-                  "Porque mantenerse activo eleva tu calidad de vida"
-                </p>
-                <p className="text-lg text-bv-warm-white/60 leading-relaxed">
-                  Forma equipos y juega partidos de fútbol, vóley, frontón o básquet con amigos y vecinos en instalaciones de primer nivel, a solo pasos de tu hogar.
-                </p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-1 md:order-2"
-              >
-                <PhotoCollage
-                  images={canchasData.gallery}
-                />
-              </motion.div>
-            </div>
-
-            {/* Block 4: Juegos Niños */}
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center group">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-1"
-              >
-                <PhotoCollage
-                  images={juegosData.gallery}
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-2"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-bv-gold font-display text-3xl font-bold opacity-30 group-hover:opacity-100 transition-opacity">04</span>
-                  <div className="h-[2px] w-12 bg-bv-gold/30 group-hover:bg-bv-gold transition-colors" />
-                </div>
-                <h4 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-bv-warm-white mb-6">
-                  Infancia libre y pura
-                </h4>
-                <p className="text-xl text-bv-gold/90 mb-6 italic font-display">
-                  "Una niñez con más contacto con la naturaleza y menos pantallas"
-                </p>
-                <p className="text-lg text-bv-warm-white/60 leading-relaxed">
-                  Amplios parques y zonas de estimulación completamente seguras donde los más pequeños podrán correr, saltar y crecer en libertad.
-                </p>
-              </motion.div>
-            </div>
-
-            {/* Block 5: Pet Friendly */}
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center group">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-2 md:order-1"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="text-bv-gold font-display text-3xl font-bold opacity-30 group-hover:opacity-100 transition-opacity">05</span>
-                  <div className="h-[2px] w-12 bg-bv-gold/30 group-hover:bg-bv-gold transition-colors" />
-                </div>
-                <h4 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-bv-warm-white mb-6">
-                  Espacios Pet Friendly
-                </h4>
-                <p className="text-xl text-bv-gold/90 mb-6 italic font-display">
-                  "Ellos también merecen un lugar diseñado para su felicidad"
-                </p>
-                <p className="text-lg text-bv-warm-white/60 leading-relaxed">
-                  Un entorno expansivo donde tus compañeros peludos podrán correr y disfrutar con total libertad en áreas seguras creadas exclusivamente para ellos.
-                </p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="order-1 md:order-2"
-              >
-                <PhotoCollage
-                  images={petData.gallery}
-                />
-              </motion.div>
-            </div>
-
-          </div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  className={`order-1 ${textOnLeft ? 'lg:order-2' : 'lg:order-1'} relative w-full h-full`}
+                >
+                  <PhotoCollage images={stage.images} />
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

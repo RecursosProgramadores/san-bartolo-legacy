@@ -30,7 +30,7 @@ const TeamSection = () => {
                         </div>
 
                         <h2 className="font-display font-black uppercase tracking-tighter text-4xl md:text-5xl lg:text-[4rem] text-bv-warm-white mb-10 leading-[1.05]">
-                            Un equipo comprometido con <br className="hidden lg:block" /><span className="text-bv-gold">tu tranquilidad</span>
+                            Un proyecto desarrollado por <br className="hidden lg:block" /><span className="text-bv-gold">un equipo comprometido</span>
                         </h2>
 
                         <div className="space-y-6">

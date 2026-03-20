@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import { Play } from "lucide-react";
+import { Play, X } from "lucide-react";
 
 // Imports explícitos de "fotosentrega" (Fila 1)
 import entrega1 from "@/assets/testimonios/fotosentrega/image.jpg";
@@ -48,80 +48,178 @@ const ImageMarquee = ({ images, speed = 40, direction = "left" }: { images: stri
   );
 };
 
-// Vimeos 
-const vimeoVideos = [
+// Vimeos Testimonios
+const vimeoTestimonios = [
+  "1175306057",
+  "1175312937",
+  "1175322082",
+  "1175325147",
   "1174279115",
   "1174283172",
-  "1174284982",
-  "1174286088",
-  "1174287029",
   "1174297506"
 ];
 
-const VideoPlayer = ({ id }: { id: string }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+// Vimeos Avances / Otros
+const vimeoOtros = [
+  "1174284982",
+  "1174286088",
+  "1174287029"
+];
+
+const VideoLightbox = () => {
+  const [videoId, setVideoId] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleVideoPlay = (e: any) => {
-      if (e.detail.id !== id) setIsPlaying(false);
+    const handleOpen = (e: any) => {
+      setVideoId(e.detail.id);
     };
-    window.addEventListener('custom-video-play', handleVideoPlay);
-    return () => window.removeEventListener('custom-video-play', handleVideoPlay);
-  }, [id]);
+    window.addEventListener("openVideoLightbox", handleOpen);
+    return () => window.removeEventListener("openVideoLightbox", handleOpen);
+  }, []);
 
-  const handlePlayToggle = () => {
-    if (!isPlaying) {
-      window.dispatchEvent(new CustomEvent('custom-video-play', { detail: { id } }));
-      setIsPlaying(true);
-    } else {
-      setIsPlaying(false);
-    }
+  return (
+    <AnimatePresence>
+      {videoId && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 md:p-10"
+          onClick={() => {
+            setVideoId(null);
+            window.dispatchEvent(new CustomEvent('custom-video-stop'));
+          }}
+        >
+          <motion.button
+            className="absolute top-6 right-6 z-[110] text-white/70 hover:text-white"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <X className="w-10 h-10" />
+          </motion.button>
+
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="relative h-full max-h-[85vh] md:max-h-[90vh] aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              src={`https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`}
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+              className="absolute inset-0 w-full h-full"
+            />
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const VideoPlayer = ({ id }: { id: string }) => {
+  const handlePlayClick = () => {
+    window.dispatchEvent(new CustomEvent('openVideoLightbox', { detail: { id } }));
+    window.dispatchEvent(new CustomEvent('custom-video-play', { detail: { id } }));
   };
 
   return (
-    <div className="w-full aspect-[9/16] rounded-2xl bg-bv-dark/80 border border-bv-gold/20 shadow-lg overflow-hidden relative group/play">
-      {!isPlaying && (
-        <div 
-          className="absolute inset-0 z-20 flex items-center justify-center cursor-pointer group/playbtn"
-          onClick={handlePlayToggle}
-        >
-          <div className="w-12 h-12 bg-bv-gold/90 rounded-full flex items-center justify-center pl-1 shadow-[0_0_20px_rgba(234,179,8,0.5)] backdrop-blur-sm group-hover/playbtn:scale-110 transition-transform">
-            <Play className="w-6 h-6 text-bv-dark fill-bv-dark" />
-          </div>
+    <div 
+      className="w-full aspect-[9/16] rounded-2xl bg-bv-dark/80 border border-bv-gold/20 shadow-lg overflow-hidden relative group/play cursor-pointer"
+      onClick={handlePlayClick}
+    >
+      <div className="absolute inset-0 z-20 flex items-center justify-center group/playbtn">
+        <div className="w-12 h-12 bg-bv-gold/90 rounded-full flex items-center justify-center pl-1 shadow-[0_0_20px_rgba(234,179,8,0.5)] backdrop-blur-sm group-hover/playbtn:scale-110 transition-transform">
+          <Play className="w-6 h-6 text-bv-dark fill-bv-dark" />
         </div>
-      )}
-
-      {isPlaying && (
-        <div 
-          className="absolute inset-0 z-20 cursor-pointer group/stop"
-          onClick={handlePlayToggle}
-        >
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/stop:opacity-100 transition-opacity duration-300">
-            <div className="w-12 h-12 bg-bv-dark/70 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)] backdrop-blur-sm scale-90 group-hover/stop:scale-100 transition-transform">
-              <div className="w-4 h-4 bg-white rounded-sm" />
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
 
       <iframe
-        src={`https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0&controls=0&dnt=1&playsinline=1${isPlaying ? '&autoplay=1' : ''}`}
+        src={`https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0&controls=0&dnt=1&playsinline=1`}
         width="100%"
         height="100%"
         frameBorder="0"
         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       />
     </div>
   );
 };
 
-const StaticVideoGrid = () => {
+const StaticVideoGrid = ({ videos, title, subtitle }: { videos: string[], title?: string, subtitle?: React.ReactNode }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        const isMobile = window.innerWidth < 1024;
+        
+        if (isMobile) {
+          if (scrollLeft + clientWidth >= scrollWidth - 10) {
+            scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            scrollRef.current.scrollBy({ left: window.innerWidth * 0.75, behavior: 'smooth' });
+          }
+        }
+      }
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  useEffect(() => {
+    const handleVideoPlay = () => setIsPaused(true);
+    const handleVideoStop = () => setIsPaused(false);
+    window.addEventListener('custom-video-play', handleVideoPlay);
+    window.addEventListener('custom-video-stop', handleVideoStop);
+    return () => {
+      window.removeEventListener('custom-video-play', handleVideoPlay as any);
+      window.removeEventListener('custom-video-stop', handleVideoStop as any);
+    };
+  }, []);
+
   return (
-    <div className="w-full max-w-7xl mx-auto mt-8 border-y border-white/5 py-8">
-      <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
-        {vimeoVideos.map((id, idx) => (
-          <VideoPlayer key={idx} id={id} />
+    <div className="w-full max-w-7xl mx-auto mt-16 px-4">
+      <style dangerouslySetInnerHTML={{__html: `
+        .hide-scroll::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+        .hide-scroll { -ms-overflow-style: none !important; scrollbar-width: none !important; }
+      `}} />
+      
+      {(title || subtitle) && (
+        <div className="text-center mb-10">
+          {title && (
+            <h4 className="text-3xl md:text-4xl font-display font-bold text-bv-warm-white mb-3">
+              {title}
+            </h4>
+          )}
+          {subtitle && (
+            <p className="text-lg md:text-2xl text-bv-gold font-light">
+              {subtitle}
+            </p>
+          )}
+        </div>
+      )}
+      
+      <div 
+        ref={scrollRef}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={() => setIsPaused(true)}
+        className="flex overflow-x-auto lg:overflow-visible snap-x snap-mandatory pt-2 pb-4 -mx-4 px-4 md:mx-0 md:px-0 gap-4 md:gap-6 lg:gap-4 lg:justify-center hide-scroll scroll-smooth"
+      >
+        {videos.map((id, idx) => (
+          <div 
+            key={idx} 
+            className="w-[75vw] sm:w-[45vw] md:w-[220px] lg:w-[14%] lg:flex-1 lg:max-w-[170px] shrink-0 lg:shrink snap-center transition-transform duration-300 hover:-translate-y-2 relative"
+          >
+            <VideoPlayer id={id} />
+          </div>
         ))}
       </div>
     </div>
@@ -263,8 +361,20 @@ const SocialProofSection = () => {
         {/* Row 2: Firmas Notaria (Right to Left) */}
         <ImageMarquee images={row2} direction="left" speed={90} />
 
-        {/* Row 3: Static Vimeo Videos Grid */}
-        <StaticVideoGrid />
+        {/* Row 3: Testimonios Grid */}
+        <StaticVideoGrid 
+          videos={vimeoTestimonios}
+          title="Cada semana más familias eligen Buenavista. Escucha por qué"
+        />
+
+        {/* Row 4: Otros Videos Grid */}
+        <div className="pt-8 border-t border-white/5 mt-8 max-w-6xl mx-auto w-full">
+          <StaticVideoGrid 
+            videos={vimeoOtros}
+            title="Conoce más del Proyecto"
+            subtitle="Recorridos y Avances"
+          />
+        </div>
       </div>
 
       <div className="bv-container relative z-10 mt-16">
@@ -285,6 +395,7 @@ const SocialProofSection = () => {
           </p>
         </motion.div>
       </div>
+      <VideoLightbox />
     </section>
   );
 };

@@ -17,7 +17,7 @@ const LocationSection = () => {
                 <div className="text-center mb-20 md:mb-32">
                     <span className="text-[10px] uppercase tracking-[0.4em] text-bv-gold/70 mb-4 block font-bold">Inversión Segura</span>
                     <h2 className="font-display font-black uppercase tracking-tighter text-3xl md:text-5xl lg:text-6xl text-bv-warm-white leading-[1.05]">
-                        Ubicación Estratégica en <span className="text-bv-gold">San Bartolo</span>
+                        ¡3 razones que hacen de <span className="text-bv-gold">Buenavista</span> una inversión segura!
                     </h2>
                 </div>
 
