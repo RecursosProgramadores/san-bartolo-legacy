@@ -371,8 +371,7 @@ const SocialProofSection = () => {
         <div className="pt-8 border-t border-white/5 mt-8 max-w-6xl mx-auto w-full">
           <StaticVideoGrid 
             videos={vimeoOtros}
-            title="Conoce más del Proyecto"
-            subtitle="Recorridos y Avances"
+            title="Así celebran las familias que ya recibieron su lote"
           />
         </div>
       </div>

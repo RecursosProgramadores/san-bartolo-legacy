@@ -3,17 +3,12 @@ import { X, ShieldCheck, ImageIcon } from "lucide-react";
 import legalDocs from "@/assets/legal-docs.jpg";
 
 // Imports explícitos ZONAS SOCIALES
-import zs1 from "@/assets/etapas/zonasociales/image2.jpg";
-import zs2 from "@/assets/etapas/zonasociales/image3.jpg";
-import zs3 from "@/assets/etapas/zonasociales/image8.jpg";
-import zs4 from "@/assets/etapas/zonasociales/image11.jpg";
-import zs5 from "@/assets/etapas/zonasociales/image14.jpg";
-import zs6 from "@/assets/etapas/zonasociales/image15.jpg";
-import zs7 from "@/assets/etapas/zonasociales/image16.jpg";
-import zs8 from "@/assets/etapas/zonasociales/image17.jpg";
-import zs9 from "@/assets/etapas/zonasociales/image19.jpeg";
-import zs10 from "@/assets/etapas/zonasociales/image30.jpg";
-const zSocialesData = { portada: zs1, gallery: [zs1, zs2, zs3, zs4, zs5, zs6, zs7, zs8, zs9, zs10] };
+import zs1 from "@/assets/etapas/zonasociales/cambio (1).jpeg";
+import zs2 from "@/assets/etapas/zonasociales/image19.jpg";
+import zs3 from "@/assets/etapas/zonasociales/image2.jpeg";
+import zs4 from "@/assets/etapas/zonasociales/image3.jpg";
+import zs5 from "@/assets/etapas/zonasociales/image30.jpg";
+const zSocialesData = { portada: zs1, gallery: [zs1, zs2, zs3, zs4, zs5] };
 
 // Imports explícitos PISCINAS
 import pPortada from "@/assets/etapas/piscinas/portada.jpg";
@@ -31,16 +26,12 @@ import c4 from "@/assets/etapas/canchasdeportivas/image10.jpg";
 const canchasData = { portada: cPortada, gallery: [cPortada, c1, c2, c3, c4] };
 
 // Imports explícitos JUEGO NIÑOS
-import jPortada from "@/assets/etapas/juegoninos/portada.jpg";
-import j1 from "@/assets/etapas/juegoninos/image3.jpg";
-import j2 from "@/assets/etapas/juegoninos/image4.jpg";
-import j3 from "@/assets/etapas/juegoninos/image5.jpg";
-import j4 from "@/assets/etapas/juegoninos/image8.jpg";
-import j5 from "@/assets/etapas/juegoninos/image10.jpg";
-import j6 from "@/assets/etapas/juegoninos/image13.jpg";
-import j7 from "@/assets/etapas/juegoninos/image14.jpg";
-import j8 from "@/assets/etapas/juegoninos/image31.jpg";
-const juegosData = { portada: jPortada, gallery: [jPortada, j1, j2, j3, j4, j5, j6, j7, j8] };
+import j1 from "@/assets/etapas/juegoninos/image4.jpg";
+import j2 from "@/assets/etapas/juegoninos/image40.jpeg";
+import j3 from "@/assets/etapas/juegoninos/image41.jpeg";
+import j4 from "@/assets/etapas/juegoninos/image5.jpg";
+import j5 from "@/assets/etapas/juegoninos/image8.jpg";
+const juegosData = { portada: j1, gallery: [j1, j2, j3, j4, j5] };
 
 // Imports explícitos PET FRIENDLY
 import pfPortada from "@/assets/etapas/petfriendly/portada.jpeg";
