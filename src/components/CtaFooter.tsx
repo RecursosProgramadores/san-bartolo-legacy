@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Heart, Mail, MessageCircle, MapPin, ShieldCheck, ExternalLink } from "lucide-react";
+import { Heart, Mail, MessageCircle, MapPin, ShieldCheck, ExternalLink, FileText } from "lucide-react";
+import { Link } from "react-router-dom";
 import familySunset from "@/assets/family-sunset.jpeg";
 import logoBuenavista from "@/assets/logos/logo-buenavista.png";
 import whatsappIcon from "@/assets/logos/whatsapp.svg";
@@ -8,6 +9,7 @@ import instagramIcon from "@/assets/logos/instagram.svg";
 import tiktokIcon from "@/assets/logos/tiktok.svg";
 import youtubeIcon from "@/assets/logos/youtube.svg";
 import libroReclamaciones from "@/assets/logos/libroreclamaciones.jpeg";
+import flyLogo from "@/assets/logos/logo.svg";
 
 const WHATSAPP_URL = "https://wa.me/51908930174?text=Hola%2C%20quiero%20agendar%20mi%20visita%20gratis%20al%20condominio";
 const EMAIL = "condominiosbuenavista.net@gmail.com";
@@ -110,7 +112,7 @@ const Footer = () => (
         {/* Column 3: Trust & Legal */}
         <div className="text-left">
           <h4 className="text-bv-gold font-display font-bold text-lg mb-8 uppercase tracking-widest">Seguridad Legal</h4>
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-bv-gold" />
               <span className="text-bv-warm-white/60 text-sm">Partida SUNARP Activa</span>
@@ -119,10 +121,22 @@ const Footer = () => (
               <ShieldCheck className="w-5 h-5 text-bv-gold" />
               <span className="text-bv-warm-white/60 text-sm">Registro SUNAT al día</span>
             </div>
+            <div className="pt-2 space-y-3">
+              <Link to="/terminos-y-condiciones" className="flex items-center gap-3 group/link">
+                <FileText className="w-4 h-4 text-bv-gold/50 group-hover/link:text-bv-gold transition-colors" />
+                <span className="text-bv-warm-white/60 text-xs group-hover/link:text-bv-gold transition-colors">Términos y condiciones</span>
+              </Link>
+              <Link to="/politica-de-privacidad" className="flex items-center gap-3 group/link">
+                <FileText className="w-4 h-4 text-bv-gold/50 group-hover/link:text-bv-gold transition-colors" />
+                <span className="text-bv-warm-white/60 text-xs group-hover/link:text-bv-gold transition-colors">Política de privacidad</span>
+              </Link>
+            </div>
             <div className="pt-4">
               <p className="text-[10px] text-bv-warm-white/40 mb-3 tracking-widest uppercase">Atención al cliente</p>
               <a
-                href="#"
+                href="https://forms.gle/YaXB1nhvNkimJGUT7"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 p-3 rounded-xl bg-white/5 border border-white/10 hover:border-bv-gold/30 hover:bg-white/10 transition-all group"
               >
                 <img src={libroReclamaciones} alt="Libro de Reclamaciones" className="h-8 object-contain" />
@@ -160,10 +174,15 @@ const Footer = () => (
           <p className="text-bv-warm-white/20 text-[10px] mt-1">Imágenes referenciales sujetas a variaciones durante el desarrollo del proyecto.</p>
         </div>
 
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 opacity-70 hover:opacity-100 transition-opacity">
+        <a 
+          href="https://fly-software.lovable.app/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 opacity-70 hover:opacity-100 hover:bg-white/10 transition-all hover:scale-105 group"
+        >
           <span className="text-[10px] text-bv-warm-white/40 uppercase tracking-widest">Desarrollado por</span>
-          <span className="text-bv-gold font-display font-bold italic tracking-tighter text-lg">Fly Software</span>
-        </div>
+          <img src={flyLogo} alt="Fly Software" className="h-6 object-contain" />
+        </a>
       </div>
     </div>
   </footer>
