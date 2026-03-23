@@ -150,7 +150,7 @@ const VideoPlayer = ({ id }: { id: string }) => {
   );
 };
 
-const StaticVideoGrid = ({ videos, title, subtitle }: { videos: string[], title?: string, subtitle?: React.ReactNode }) => {
+const StaticVideoGrid = ({ videos, title, subtitle }: { videos: string[], title?: React.ReactNode, subtitle?: React.ReactNode }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -364,14 +364,14 @@ const SocialProofSection = () => {
         {/* Row 3: Testimonios Grid */}
         <StaticVideoGrid 
           videos={vimeoTestimonios}
-          title="Cada semana más familias eligen Buenavista. Escucha por qué"
+          title={<>Cada semana más <span className="text-bv-gold">familias</span> eligen <span className="text-bv-gold">Buenavista</span>. Escucha <span className="text-bv-gold">por qué</span></>}
         />
 
         {/* Row 4: Otros Videos Grid */}
         <div className="pt-8 border-t border-white/5 mt-8 max-w-6xl mx-auto w-full">
           <StaticVideoGrid 
             videos={vimeoOtros}
-            title="Así celebran las familias que ya recibieron su lote"
+            title={<>Así celebran las <span className="text-bv-gold">familias</span> que ya recibieron su <span className="text-bv-gold">lote</span></>}
           />
         </div>
       </div>

@@ -11,14 +11,13 @@ import zs5 from "@/assets/etapas/zonasociales/image30.jpg";
 const zSocialesData = { portada: zs1, gallery: [zs1, zs2, zs3, zs4, zs5] };
 
 // Imports explícitos PISCINAS
-import pPortada from "@/assets/etapas/piscinas/portada.jpg";
 import p1 from "@/assets/etapas/piscinas/image.jpg";
 import p2 from "@/assets/etapas/piscinas/image2.jpg";
 import p3 from "@/assets/etapas/piscinas/image3.jpg";
-const piscinasData = { portada: pPortada, gallery: [pPortada, p1, p2, p3] };
+const piscinasData = { portada: p1, gallery: [p1, p2, p3] };
 
 // Imports explícitos CANCHAS DEPORTIVAS
-import cPortada from "@/assets/etapas/canchasdeportivas/portada.jpg";
+import cPortada from "@/assets/etapas/canchasdeportivas/portada.jpeg";
 import c1 from "@/assets/etapas/canchasdeportivas/image5.jpeg";
 import c2 from "@/assets/etapas/canchasdeportivas/image7.jpeg";
 import c3 from "@/assets/etapas/canchasdeportivas/image8.jpg";
@@ -27,11 +26,10 @@ const canchasData = { portada: cPortada, gallery: [cPortada, c1, c2, c3, c4] };
 
 // Imports explícitos JUEGO NIÑOS
 import j1 from "@/assets/etapas/juegoninos/image4.jpg";
-import j2 from "@/assets/etapas/juegoninos/image40.jpeg";
 import j3 from "@/assets/etapas/juegoninos/image41.jpeg";
 import j4 from "@/assets/etapas/juegoninos/image5.jpg";
 import j5 from "@/assets/etapas/juegoninos/image8.jpg";
-const juegosData = { portada: j1, gallery: [j1, j2, j3, j4, j5] };
+const juegosData = { portada: j1, gallery: [j1, j3, j4, j5] };
 
 // Imports explícitos PET FRIENDLY
 import pfPortada from "@/assets/etapas/petfriendly/portada.jpeg";
@@ -51,11 +49,7 @@ const PhotoCollage = ({ images }: { images: string[] }) => {
       if (idx === 0) return "col-span-1 row-span-2"; // Mitad izquierda entera
       return "col-span-1 row-span-1"; // Dos apiladas a la derecha
     }
-    // PISCINAS (4 fotos) -> 1 grande arriba, 3 iguales abajo
-    if (count === 4) {
-      if (idx === 0) return "col-span-3 row-span-2"; // Principal enorme arriba
-      return "col-span-1 row-span-1"; // Tres abajo
-    }
+
     // CANCHAS DEPORTIVAS (5 fotos) -> 2 grandes arriba, 3 medianas abajo
     if (count === 5) {
       if (idx === 0 || idx === 1) return "col-span-3 row-span-2"; // Dos grandes arriba
@@ -86,7 +80,7 @@ const PhotoCollage = ({ images }: { images: string[] }) => {
 
   // Ajustar filas/columnas maestras
   if (count === 3) gridClasses += " grid-cols-2 grid-rows-2";
-  else if (count === 4) gridClasses += " grid-cols-3 grid-rows-3";
+  else if (count === 4) gridClasses += " grid-cols-2 grid-rows-2";
   else if (count === 5) gridClasses += " grid-cols-6 grid-rows-3";
   else if (count === 8) gridClasses += " grid-cols-4 grid-rows-4";
   else if (count === 9) gridClasses += " grid-cols-4 grid-rows-3";
