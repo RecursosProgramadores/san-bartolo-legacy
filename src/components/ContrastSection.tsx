@@ -41,71 +41,80 @@ const petData = { portada: pfPortada, gallery: [pfPortada, pf1, pf2] };
 const PhotoCollage = ({ images }: { images: string[] }) => {
   const count = images.length;
 
-  // Lógica de Renderizado Premium para encajar EXACTAMENTE la cantidad de imágenes
-  let gridClasses = "grid gap-2 p-2 w-full h-full min-h-[400px] md:min-h-[500px]";
-  let itemClasses = (idx: number) => {
-    // PET FRIENDLY (3 fotos) -> 1 grande a la izquierda, 2 cuadradas a la derecha
+  // Desktop Grid Logic
+  const getDesktopItemClasses = (idx: number) => {
     if (count === 3) {
-      if (idx === 0) return "col-span-1 row-span-2"; // Mitad izquierda entera
-      return "col-span-1 row-span-1"; // Dos apiladas a la derecha
-    }
-
-    // CANCHAS DEPORTIVAS (5 fotos) -> 2 grandes arriba, 3 medianas abajo
-    if (count === 5) {
-      if (idx === 0 || idx === 1) return "col-span-3 row-span-2"; // Dos grandes arriba
-      return "col-span-2 row-span-1"; // Tres abajo
-    }
-    // JUEGOS NIÑOS (8 fotos) -> Diseño Bento Box dinámico
-    if (count === 8) {
-      if (idx === 0) return "col-span-2 row-span-2"; // Grande principal
-      if (idx === 1) return "col-span-2 row-span-1"; // Ancha arriba
-      if (idx === 2 || idx === 3) return "col-span-1 row-span-1"; // Cuadritos
-      if (idx === 4) return "col-span-2 row-span-2"; // Otra grande
-      return "col-span-2 row-span-1"; // Resto
-    }
-    // ZONAS SOCIALES (9 fotos) -> 1 Enorme central, rodeada de 8 pequeñas
-    if (count === 9) {
-      if (idx === 4) return "col-span-2 row-span-2"; // El centro es grande
-      return "col-span-1 row-span-1"; // El resto hace marco
-    }
-    // ZONAS SOCIALES UPDATE (10 fotos) -> 2 grandes, 8 pequeñas
-    if (count === 10) {
-      if (idx === 0 || idx === 5) return "col-span-2 row-span-2";
+      if (idx === 0) return "col-span-1 row-span-2";
       return "col-span-1 row-span-1";
     }
-
-    // Fallback safe
+    if (count === 4) return "col-span-1 row-span-1";
+    if (count === 5) {
+      if (idx === 0 || idx === 1) return "col-span-3 row-span-2";
+      return "col-span-2 row-span-1";
+    }
+    if (count === 8) {
+      if (idx === 0 || idx === 4) return "col-span-2 row-span-2";
+      if (idx === 1) return "col-span-2 row-span-1";
+      return "col-span-1 row-span-1";
+    }
+    if (count === 9) {
+      if (idx === 4) return "col-span-2 row-span-2";
+      return "col-span-1 row-span-1";
+    }
     return "col-span-1 row-span-1";
   };
 
-  // Ajustar filas/columnas maestras
-  if (count === 3) gridClasses += " grid-cols-2 grid-rows-2";
-  else if (count === 4) gridClasses += " grid-cols-2 grid-rows-2";
-  else if (count === 5) gridClasses += " grid-cols-6 grid-rows-3";
-  else if (count === 8) gridClasses += " grid-cols-4 grid-rows-4";
-  else if (count === 9) gridClasses += " grid-cols-4 grid-rows-3";
-  else if (count === 10) gridClasses += " grid-cols-4 grid-rows-4 grid-flow-dense";
-  else gridClasses += " grid-cols-2 md:grid-cols-3 auto-rows-fr"; // Safe fallback
+  // Mobile Grid Logic (Vertical-first blocks)
+  const getMobileItemClasses = (idx: number) => {
+    if (count === 4) return "col-span-1 aspect-square"; // El usuario pidió un cuadrado 2x2 para Stage 04
+    if (idx === 0) return "col-span-2 aspect-video"; // Primera imagen grande y completa para el resto
+    return "col-span-1 aspect-square"; // El resto en parejas cuadradas
+  };
+
+  let desktopGridClasses = "grid gap-2 p-2 w-full h-full";
+  if (count === 3) desktopGridClasses += " grid-cols-2 grid-rows-2";
+  else if (count === 4) desktopGridClasses += " grid-cols-2 grid-rows-2";
+  else if (count === 5) desktopGridClasses += " grid-cols-6 grid-rows-3";
+  else if (count === 8) desktopGridClasses += " grid-cols-4 grid-rows-4";
+  else if (count === 9) desktopGridClasses += " grid-cols-4 grid-rows-3";
+  else desktopGridClasses += " grid-cols-2 auto-rows-fr";
 
   return (
-    <div className="w-full h-full min-h-[350px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] relative rounded-xl lg:rounded-[2rem] overflow-hidden group">
-      <div className={`absolute inset-0 ${gridClasses}`}>
+    <div className="w-full relative group">
+      {/* MOBILE: Vertical Grid Block (High Visibility, No Cuts) */}
+      <div className="grid md:hidden grid-cols-2 gap-3 p-1 w-full relative">
         {images.map((img, idx) => (
-          <div key={idx} className={`relative rounded-lg lg:rounded-2xl overflow-hidden ${itemClasses(idx)}`}>
-            {/* The image with premium filters to hide low resolution & pixelation */}
+          <div 
+            key={idx} 
+            className={`relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 ${getMobileItemClasses(idx)}`}
+          >
             <img 
               src={img} 
-              alt={`Experiencia detalle ${idx + 1}`} 
+              alt={`Detalle ${idx + 1}`} 
               className="absolute inset-0 w-full h-full object-cover" 
-              style={{
-                filter: "contrast(1.15) saturate(1.1) brightness(0.9)"
-              }}
+              style={{ filter: "contrast(1.05) saturate(1.1) brightness(0.95)" }}
             />
-            {/* Inner vignette and gradient to add depth and hide edge pixelation */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 mix-blend-multiply pointer-events-none opacity-40" />
-            <div className="absolute inset-0 shadow-[inset_0_0_15px_rgba(0,0,0,0.3)] pointer-events-none rounded-lg lg:rounded-2xl" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-50" />
           </div>
         ))}
+      </div>
+
+      {/* DESKTOP: Premium Grid Collage */}
+      <div className="hidden md:block w-full h-[500px] lg:h-[600px] xl:h-[700px] relative rounded-[2rem] overflow-hidden">
+        <div className={`absolute inset-0 ${desktopGridClasses}`}>
+          {images.map((img, idx) => (
+            <div key={idx} className={`relative rounded-2xl overflow-hidden ${getDesktopItemClasses(idx)}`}>
+              <img 
+                src={img} 
+                alt={`Detalle ${idx + 1}`} 
+                className="absolute inset-0 w-full h-full object-cover" 
+                style={{ filter: "contrast(1.1) saturate(1.1) brightness(0.9)" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 mix-blend-multiply pointer-events-none opacity-40" />
+              <div className="absolute inset-0 shadow-[inset_0_0_15px_rgba(0,0,0,0.3)] pointer-events-none rounded-2xl" />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -264,7 +273,7 @@ const ContrastSection = () => {
                   initial={{ opacity: 0, x: textOnLeft ? -30 : 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  className={`order-2 ${textOnLeft ? 'lg:order-1' : 'lg:order-2'} relative w-full h-full flex flex-col justify-center py-8 lg:p-12 xl:p-20 2xl:p-24`}
+                  className={`order-1 ${textOnLeft ? 'lg:order-1' : 'lg:order-2'} relative w-full h-full flex flex-col justify-center py-8 lg:p-12 xl:p-20 2xl:p-24`}
                 >
                   <div className="flex items-center gap-6 mb-8 lg:mb-10">
                     <span className="text-bv-gold font-display text-4xl lg:text-5xl font-bold">{stage.num}</span>
@@ -285,7 +294,7 @@ const ContrastSection = () => {
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  className={`order-1 ${textOnLeft ? 'lg:order-2' : 'lg:order-1'} relative w-full h-full`}
+                  className={`order-2 ${textOnLeft ? 'lg:order-2' : 'lg:order-1'} relative w-full h-full`}
                 >
                   <PhotoCollage images={stage.images} />
                 </motion.div>
